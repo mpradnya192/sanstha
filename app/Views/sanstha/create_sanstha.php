@@ -30,7 +30,7 @@
 							<h3 class="card-title">Create Sanstha</h3>
 						</div>
 					</div>
-					<form role="form" id="createSanstha" method="post" action="<?= site_url('sanstha/create_sanstha'); ?>">
+					<form role="form" id="createSanstha" method="post" action="<?= site_url('cosanstha/create_sanstha/'.service('uri')->getSegment(3).''); ?>">
 						<div class="card-body" style="padding: 0.25rem;">
 							<fieldset style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>1. State Details</h4>
 								<div class="row">

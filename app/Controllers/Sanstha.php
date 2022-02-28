@@ -14,6 +14,7 @@ use \App\Models\SansthaBranchesModel;
 use \App\Models\SansthaMembershipModel;
 use \App\Models\SansthaDetailsModel;
 use \App\Models\DistrictModel;
+use \App\Models\TalukaModel;
 $session = \Config\Services::session();
 
 class Sanstha extends Controller
@@ -102,6 +103,7 @@ class Sanstha extends Controller
 			"membership"=>(new PickupModel())->where(array('master_isDelete'=>0,'master_for'=>8))->findAll(),
 		];
 		if($this->request->getMethod() == 'post'){
+			// echo $this->request->getVar('cs_state');die();
 			$sanstha=[
 				'cs_prefix'=>$this->request->getVar('cs_prefix'),
 				'cs_name'=>$this->request->getVar('cs_name'),
@@ -132,34 +134,17 @@ class Sanstha extends Controller
 				// 'cs_membership_end_date'=>$this->request->getVar('cs_membership_end_date'),
 				//'cs_desc'=>$this->request->getVar('cs_desc'),
 				'cs_createdBy'=>session()->get('id'),
+				'cs_modifiedBy'=>session()->get('id'),
 				'cs_createdOn'=>date('Y-m-d H:i:s'),
+				'cs_modifiedOn'=>date('Y-m-d H:i:s'),
 			];
 			// print_r($sanstha);die();
 			(new SansthaModel())->insert($sanstha);
 			$sanstha_id = (new SansthaModel)->insertID();
-			return redirect()->to('/sanstha/sanstha_details/'.$this->request->getVar('cs_state'));
-			//return redirect()->to('sanstha/update_sanstha/'.$sanstha_id.'');
-			//return redirect()->route('sanstha/update_sanstha/'.$sanstha_id.'');
-			//redirect('sanstha/update_sanstha/'.$sanstha_id.'');
-
-			// $sanstha_details=[
-			// 	'csd_sanstha_id'=>$sanstha_id,
-			// 	'csd_branch_nos'=>$this->request->getVar('csd_branch_nos'),
-			// 	'csd_estension_counters'=>$this->request->getVar('csd_estension_counters'),
-			// 	'csd_members_count'=>$this->request->getVar('csd_members_count'),
-			// 	'csd_annual_turnover'=>$this->request->getVar('csd_annual_turnover'),
-			// 	'csd_chairman_name'=>$this->request->getVar('csd_chairman_name'),
-			// 	'csd_chairman_mobile'=>$this->request->getVar('csd_chairman_mobile'),
-			// 	'csd_md_name'=>$this->request->getVar('csd_md_name'),
-			// 	'csd_md_mobile'=>$this->request->getVar('csd_md_mobile'),
-			// 	'csd_createdOn'=>date('Y-m-d H:i:s'),
-			// 	'csd_createdBy'=>session()->get('id'),
-			// ];
-			// (new SansthaDetailsModel())->insert($sanstha_details);
-
+			return redirect()->to('/cosanstha/sanstha_details/'.$this->request->getVar('cs_state'));
 			session()->setFlashdata('success','Sanstha Registered Successfully  ..!!');
 			// return redirect()->route('sanstha/sanstha_details');
-			
+			die();
 		}
 		return view('sanstha/create_sanstha', $data);
 
@@ -187,6 +172,8 @@ class Sanstha extends Controller
 		$data["sanstha_branches"]=(new SansthaBranchesModel())->where(array('sb_isDelete'=>0,'sb_sanstha_id'=>(service('uri'))->getSegment(3)))->findAll();
 		$data["sanstha_details"]=(new SansthaDetailsModel())->where(array('csd_isDelete'=>0,'csd_sanstha_id'=>(service('uri'))->getSegment(3)))->findAll();
 		$data["sanstha_mem"]=(new SansthaMembershipModel())->where(array('mem_isDelete'=>0,'mem_sanstha_id'=>(service('uri'))->getSegment(3)))->findAll();
+		$data['sector']=(new SectorModel())->where('sector_isDelete',0)->findAll();
+		$data['subsector']=(new SubsectorModel())->where('ss_isDelete = 0 AND ss_sector_id = '.$data['sanstha_data'][0]['cs_sector'].'')->findAll();
 		// print_r($sansthaData); die();		
 		return view('sanstha/sansthaData',$data);			
 	}
@@ -198,7 +185,7 @@ class Sanstha extends Controller
 		];
 		// print_r($sansthaData); die();
 		session()->set($sansthaData);			
-		return redirect()->route('sanstha/sansthaUpdateRe');			
+		return redirect()->route('cosanstha/sansthaUpdateRe');			
 	}
 
 	function update_sanstha_record()
@@ -260,7 +247,9 @@ class Sanstha extends Controller
 			'cs_classification1'=>$this->request->getVar('cs_classification1'),
 			'cs_classification2'=>$this->request->getVar('cs_classification2'),
 			'cs_classification3'=>$this->request->getVar('cs_classification3'),
-			'cs_classification4'=>$this->request->getVar('cs_classification4')
+			'cs_classification4'=>$this->request->getVar('cs_classification4'),
+			'cs_modifiedBy'=>session()->get('id'),
+			'cs_modifiedOn'=>date('Y-m-d H:i:s'),
 		];
 		// print_r($sanstha);die();
 		(new SansthaModel())->update($this->request->getVar('cs_id'),$sanstha);
@@ -308,7 +297,7 @@ class Sanstha extends Controller
 		}
 		
 		
-		return redirect()->to('/sanstha/sanstha_details/'.$this->request->getVar('cs_state'));
+		return redirect()->to('sanstha_details/'.$this->request->getVar('cs_state'));
 	}
 
 	public function sansthaDelete()
@@ -383,7 +372,7 @@ class Sanstha extends Controller
 			"district_data" => '',
 			"taluka_data" => '',
 		];
-		return redirect()->to('/sanstha/sanstha_details/'.$sanstha_data[0]['cs_state']);
+		return redirect()->to('sanstha_details/'.$sanstha_data[0]['cs_state']);
 	}
 
 	function getCity()
@@ -391,6 +380,14 @@ class Sanstha extends Controller
 		$chkVal = $_POST['chkVal'];	
 		$cityInfo = (new DistrictModel())->where(array('dist_state_id'=>$chkVal))->findAll();
 		echo json_encode($cityInfo);
+	}
+
+	function getTaluka()
+	{
+		$chkVal = $_POST['chkVal'];	
+		$state = $_POST['state'];	
+		$talInfo = (new TalukaModel())->where(array('tal_dist_id'=>$chkVal,'tal_state_id'=>$state))->findAll();
+		echo json_encode($talInfo);
 	}
 
 	function getRegion()

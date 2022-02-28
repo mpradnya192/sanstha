@@ -2,6 +2,7 @@
 namespace App\Controllers;
 use CodeIgniter\Controller;
 use \App\Models\statesModel;
+use \App\Models\SansthaModel;
 ?>
 <?= view('home/dash_header'); ?>
     <!-- Content Wrapper. Contains page content -->
@@ -32,33 +33,33 @@ use \App\Models\statesModel;
             <?php if(session()->get('role_id') == '1' || session()->get('role_id') == '2'){ ?>
             <div class="col-lg-2 col-6">
               <!-- small box -->
-              <div style="background-color: #30b977;color:white;"class="small-box">
-                <div class="inner">
-                
-
-                  <p>All Sanstha Details</p>
+              <div style="background-color: #921919;color:white;"class="small-box">
+                <div class="inner">  
+                  <?php  $sanstha = (new SansthaModel())->where(array('cs_isDelete'=>0))->findAll(); ?>           
+                  <p>All India</p>
+                  <p><center><?= count($sanstha);?></center></p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="<?= site_url('sanstha/sanstha_details/'); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?= site_url('cosanstha/sanstha_details/'); ?>" class="small-box-footer"> Operate <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php } foreach ($sanstha_state as $key) { 
               $stateSanstha = (new statesModel())->where(array('st_id'=>$key['cs_state']))->findAll();
+              $sansthaByState = (new SansthaModel())->where(array('cs_isDelete'=>0,'cs_state'=>$key['cs_state']))->findAll();
             ?>
             <div class="col-lg-2 col-6">
               <!-- small box -->
-              <div style="background-color: #f9d62c;" class="small-box">
-                <div class="inner">
-                
-
-                  <p>Sanstha In <br><?= $stateSanstha[0]['st_name']; ?></p>
+              <div style="background-color: #ffc917;" class="small-box">
+                <div class="inner">               
+                  <p><?php echo ucfirst(strtolower($stateSanstha[0]['st_name'])); ?></p>
+                  <p><center><?= count($sansthaByState);?></center></p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="<?= site_url('sanstha/sanstha_details/'.$key['cs_state'].''); ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="<?= site_url('cosanstha/sanstha_details/'.$key['cs_state'].''); ?>" class="small-box-footer"> Operate <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <?php } ?>           

@@ -37,7 +37,7 @@ use \App\Models\SansthaDetailsModel;
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div class="card">
+					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">Sanstha Report - Turnoverwise</h3>
 						</div>
@@ -90,8 +90,8 @@ use \App\Models\SansthaDetailsModel;
 											<input type="number" name="to" class="form-control"  value="<?= $to; ?>">						
 										</div>
 										<div class="col-sm-2" style="margin-top:2.5%">
-											<button type="submit" class="btn" style="border-color: #30b977;background-color:#30b977;">Search</button>
-											<span style="border-color:#f9d62c;background-color:#f9d62c;" class="btn" id="delete_row">Reset</span>
+											<button type="submit" class="btn btn-primary" >Search</button>
+											<span class="btn btn-default" id="delete_row">Reset</span>
 										</div>
 										
 									</div>					
@@ -103,10 +103,9 @@ use \App\Models\SansthaDetailsModel;
 									<thead>
 										<tr>
 											<th style="width: 1%;text-align: center;">#</th>
-											<th style="text-align:center;">Sanstha Name</th>
+											<th style="text-align:center;">Name</th>
 											<th style="text-align: center;">Head Office Address</th>
-											<th style="text-align: center;">Chairman Details</th>
-											<th style="text-align: center;">Contact Details</th>
+											<th style="text-align: center;">Chairman/MD<br>[Name/Contact]</th>
 											<th style="text-align: center;">Turnover<br>[In lacks]</th>
 										</tr>					
 									</thead>
@@ -128,7 +127,6 @@ use \App\Models\SansthaDetailsModel;
 													echo  $chairman[0]['csd_chairman_name'].'<br>'.$chairman[0]['csd_chairman_mobile'];
 												}
 												?></td>
-												<td><?php //echo $i++; ?></td>
 												<td><?php echo $skey['sb_annual_turnover']; ?></td>
 											</tr>
 										<?php } }?>

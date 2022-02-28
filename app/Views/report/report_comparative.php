@@ -36,7 +36,7 @@ use \App\Models\SansthaDetailsModel;
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div class="card">
+					<div class="card card-primary">
 						<div class="card-header">
 							<h3 class="card-title">Sanstha Report - Camparative</h3>
 						</div>
@@ -157,8 +157,8 @@ use \App\Models\SansthaDetailsModel;
 									<div class="row" style="margin:0;">
 										<div class="col-sm-5"></div>
 										<div class="col-sm-2" style="margin-top:2.5%;text-align: center;">
-											<button type="submit" class="btn" style="border-color: #30b977;background-color:#30b977;">Search</button>
-											<span style="border-color:#f9d62c;background-color:#f9d62c;" class="btn" id="delete_row">Reset</span>
+											<button type="submit" class="btn btn-primary" >Search</button>
+											<span class="btn btn-dafault" id="delete_row">Reset</span>
 										</div>										
 									</div>					
 								</form>
@@ -170,7 +170,7 @@ use \App\Models\SansthaDetailsModel;
 										<thead>
 											<tr>
 												<th style="width: 1%;text-align: center;">#</th>
-												<th style="text-align:center;">Sanstha Name</th>
+												<th style="text-align:center;">Name</th>
 												<th style="text-align: center;">Foundation Year</th>
 											</tr>					
 										</thead>
@@ -186,7 +186,7 @@ use \App\Models\SansthaDetailsModel;
 							                        $prefix=(new PickupModel())->where('master_id',$skey['cs_prefix'])->findAll();
 							                      
 							                        if(!empty($prefix)){ echo $prefix[0]['master_name'].' '.$skey['cs_name']; } else{ echo $skey['cs_name']; } ?></td>
-													<td><?php echo $skey['cs_head_off_addr']; ?></td>
+													<td><?php echo $skey['cs_foundation_year']; ?></td>
 												</tr>
 											<?php } }?>
 										</tbody>
@@ -197,7 +197,7 @@ use \App\Models\SansthaDetailsModel;
 										<thead>
 											<tr>
 												<th style="width: 1%;text-align: center;">#</th>
-												<th style="text-align:center;">Sanstha Name</th>
+												<th style="text-align:center;">Name</th>
 												<th style="text-align: center;">Foundation Year</th>
 											</tr>					
 										</thead>
@@ -213,7 +213,7 @@ use \App\Models\SansthaDetailsModel;
 							                        $prefix=(new PickupModel())->where('master_id',$skey['cs_prefix'])->findAll();
 							                      
 							                        if(!empty($prefix)){ echo $prefix[0]['master_name'].' '.$skey['cs_name']; } else{ echo $skey['cs_name']; } ?></td>
-													<td><?php echo $skey['cs_head_off_addr']; ?></td>
+													<td><?php echo $skey['cs_foundation_year']; ?></td>
 												</tr>
 											<?php } }?>
 										</tbody>

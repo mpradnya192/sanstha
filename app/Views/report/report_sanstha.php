@@ -12,7 +12,7 @@ use \App\Models\PickupModel;
 // site_url('report/generate_report');
 ?>
 
-<?= view('home/dash_header'); ?>
+<?= view('home/dash_header');   ?>
 <style type="text/css">
 	.field_value{
 		color: #000;
@@ -35,9 +35,9 @@ use \App\Models\PickupModel;
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div class="card">
+					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Sanstha Details</h3>
+							<h3 class="card-title">Sanstha Overview Report</h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body table-responsive">
@@ -45,11 +45,11 @@ use \App\Models\PickupModel;
 								<form role="form" action="<?= site_url('Report/sanstha_report_search') ?>" method="post" style="width:100%">
 									<div class="row" style="margin:0;">
 										<div class="col-sm-2">
-											<label class="control-label">State</label>
+											<label class="control-label">State</label><?php echo $state_data;?>
 											<select class="form-control" name="state"> 
 												<option value="">Please Select State</option>
 												<?php foreach ($state as $key) {?>
-												<option value="<?= $key['st_id'] ?>"><?= $key['st_name'] ?></option>
+												<option value="<?= $key['st_id'] ?>" <?php if($key['st_id'] == $state_data){ echo "selected"; } ?>><?= $key['st_name'] ?></option>
 												<?php } ?>
 											</select>
 										</div>
@@ -98,9 +98,9 @@ use \App\Models\PickupModel;
 									</div>
 										<div class="col-sm-12" style="text-align:left;">
 											<br>
-											<button type="submit" class="btn" style="border-color: #30b977;background-color:#30b977;">Search</button>
+											<button type="submit" class="btn btn-primary">Search</button>
 											<!-- <span class="btn  add_row" style="border-color: #30b977;background-color:#30b977; " id="add_row">Add Rule</span> -->
-											<span style="border-color:#f9d62c;background-color:#f9d62c;" class="btn" id="delete_row">Reset</span>
+											<span class="btn btn-default" id="delete_row">Reset</span>
 										</div>								
 									</div>
 									<div class="row ">
@@ -114,10 +114,9 @@ use \App\Models\PickupModel;
 									<thead>
 										<tr>
 											<th style="width: 1%;text-align: center;">#</th>
-											<th style="text-align:center;">Sanstha Name</th>
+											<th style="text-align:center;">Name</th>
 											<th style="text-align: center;">Head Office Address</th>
-											<th style="text-align: center;">Chairman Details</th>
-											<th style="text-align: center;">Contact Details</th>
+											<th style="text-align: center;">Chairman/MD<br>[Name/Contact]</th>
 											<!-- <th style="text-align: center;">Actions</th> -->
 										</tr>					
 									</thead>

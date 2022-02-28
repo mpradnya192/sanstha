@@ -13,8 +13,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <link rel="shortcut icon" href="<?= base_url(); ?>/public/dist/img/WA-logo.jpg" type="image/x-icon">
-  <title>Co-operative Santha | <?= ($uri->getSegment(1) == 'dashboard' ? 'Dashboard' : null)?> <?= ($uri->getSegment(1) == 'sanstha' ? 'Sanstha Details' : null)?><?= ($uri->getSegment(1) == 'master' ? 'Master Data' : null)?><?= ($uri->getSegment(1) == 'bid' ? 'Bid Details' : null)?></title>
+  <link rel="shortcut icon" href="<?= base_url(); ?>/public/dist/img/sanstha-logo.jpg" type="image/x-icon">
+  <title>Co-operative Santha | <?= ($uri->getSegment(1) == 'dashboard' ? 'Dashboard' : null)?> <?= ($uri->getSegment(1) == 'cosanstha' ? 'Sanstha Details' : null)?><?= ($uri->getSegment(1) == 'master' ? 'Master Data' : null)?><?= ($uri->getSegment(1) == 'bid' ? 'Bid Details' : null)?></title>
 
   <link rel="stylesheet" href="<?= base_url(); ?>/public/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -57,11 +57,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       box-shadow: none !important;
     }
     .navbar-light .navbar-nav .nav-link.active{
-      color: #30b977;
+      color: #921919;
       font-weight: bold;
     }
     .navbar-light .navbar-nav .nav-link:hover{
-      color: #30b977;
+      color: #921919;
       font-weight: 600;
     }
     .navbar-light .navbar-nav .nav-link{
@@ -73,8 +73,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
       font-weight: bold;
     }
     .card-primary .card-header, .btn-primary{
-      background-color: #30b977 !important;
-      border-color: #30b977 !important;
+      background-color: #921919 !important;
+      border-color: #921919 !important;
     }
     .mandatory{
       color: red;
@@ -154,7 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
       <div class="container">
         <a href="" class="navbar-brand">
-          <img src="<?= base_url(); ?>/public/dist/img/WA-logo.png" alt="Ozone Logo" >
+          <img src="<?= base_url(); ?>/public/dist/img/sanstha-logo.jpg" alt="Ozone Logo" >
           <!-- <span class="brand-text font-weight-light">AdminLTE 3</span> -->
         </a>       
 
@@ -165,53 +165,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <a href="<?= site_url('home');?>" class="nav-link <?= ($uri->getSegment(1) == 'dashboard' ? 'active' : null)?>">Dashboard</a>
             </li>
             <?php if(session()->get('role_id') == '1' || session()->get('role_id') == '2'){ ?>
-              <li class="nav-item dropdown">
-                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'user' ? 'active' : null)?>">User Profiles</a>
-                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                  <li><a href="<?= site_url('user/create_user');?>" class="dropdown-item">Create Profiles </a></li>            
-                </ul>
-              </li>
-              <!-- <li class="nav-item dropdown">
-                <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'sanstha' ? 'active' : null)?>">Sanatha</a>
-                <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                  <li><a href="<?= site_url('sanstha/sanstha_details');?>" class="dropdown-item">Sanstha Details</a></li>   
-                  <li><a href="<?= site_url('sanstha/create_sanstha');?>" class="dropdown-item">New Sanstha</a></li>            
-                </ul>
-              </li> -->
-              <!-- <li class="nav-item dropdown">
-                <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'report' ? 'active' : null)?>">Reports</a>
-                 <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                  <li><a href="<?= site_url('report/rpt_sanstha');?>" class="dropdown-item">Sanstha Report</a></li>   
-                </ul>
-              </li> -->
+
               <li class="nav-item dropdown">
                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'report' ? 'active' : null)?>">Reports</a>
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                  <li><a href="<?= site_url('report/rpt_sanstha');?>" class="dropdown-item">Sanstha Report </a></li>
-                  <!-- <li><a href="#" class="dropdown-item">Some other action</a></li> -->
-
-                  <!-- <li class="dropdown-divider"></li> -->
-
+                  <li><a href="<?= site_url('report/rpt_sanstha');?>" class="dropdown-item">Overview</a></li>             
                   <!-- Level two dropdown-->
                   <li class="dropdown-submenu dropdown-hover">
                     <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Common Report</a>
                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                      <li>
-                        <a tabindex="-1" href="<?= site_url('report/rpt_sanstha');?>" class="dropdown-item">Sanstha Report</a>
-                      </li>  
+                      <!-- <li><a tabindex="-1" href="<?= site_url('report/rpt_sanstha');?>" class="dropdown-item">Overview</a></li>   -->
                       <li><a href="<?= site_url('report/rpt_by_foundation_year');?>" class="dropdown-item">Foundaion Year</a></li>
                       <li><a href="<?= site_url('report/rpt_by_turnover');?>" class="dropdown-item">Turnover [In Lacs]</a></li>
-                      <!--<li><a href="#" class="dropdown-item">User Performance Report</a></li>                    -->
-                      <!-- End Level three -->
-
-                      <!--<li><a href="#" class="dropdown-item">Foundaion Year</a></li>-->
-                      <li><a href="<?= site_url('report/rpt_comparative') ?>" class="dropdown-item">Camparative Report</a></li>
+                      <!-- End Level three -->                      
                     </ul>
+                    <li><a href="<?= site_url('report/rpt_comparative') ?>" class="dropdown-item">Camparative Report</a></li>
                   </li>
                   <!-- End Level two -->
                 </ul>
               </li>
-              <li class="nav-item">
+
+              <li class="nav-item dropdown">
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= ($uri->getSegment(1) == 'user' ? 'active' : null)?>">Operators</a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                  <li><a href="<?= site_url('user/create_user');?>" class="dropdown-item">Operators</a></li>            
+                </ul>
+             
+              
+              <li class="nav-item hidden">
                 <a id="dropdownSubMenu4" href="<?= site_url('master/master_details');?>" aria-haspopup="true" aria-expanded="false" class="nav-link <?= ($uri->getSegment(1) == 'master' ? 'active' : null)?>">Master</a>
               </li>
 

@@ -74,6 +74,19 @@
       },'JSON'); 
     });
 
+    $(document).on('change',"select[name='cs_filter_district']",function(){
+      var chkVal=$(this).val(); 
+      var state=$("select[name='cs_filter_state']").val(); //alert(state);
+      $.post('<?= site_url('Sanstha/getTaluka') ?>',{chkVal,state}, function(talInfo){
+        console.log(talInfo);
+        $('select[name="cs_filter_taluka"]').empty();
+        $("select[name='cs_filter_taluka']").append('<option value="">Please select</option>');
+        $.each(talInfo,function(p,q){           
+            $("select[name='cs_filter_taluka']").append('<option value="'+q.tal_id+'">'+q.tal_name+'</option>');            
+        });       
+      },'JSON');     
+    });
+
     $(document).on('change',"select[name='cs_filter_state']",function(){
       var chkVal=$(this).val(); 
         

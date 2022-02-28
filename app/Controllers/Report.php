@@ -37,7 +37,7 @@ class Report extends Controller
 
 	function sanstha_report_search(){
 		helper('text');
-		// print_r($this->request->getVar());die();
+		print_r($this->request->getVar('state'));//die();
 		$data['state_data'] = $this->request->getVar('state');
 		$data['district_data'] = $this->request->getVar('district');
 		$data['taluka_data'] = $this->request->getVar('taluka');

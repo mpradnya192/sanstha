@@ -1,3 +1,18 @@
+<?php 
+namespace App\Controllers;
+use CodeIgniter\Controller;
+use \App\Models\HomeModel;
+use \App\Models\UserModel;
+use \App\Models\RegionModel;
+use \App\Models\statesModel;
+use \App\Models\CitiesModel;
+use \App\Models\SansthaModel;
+use \App\Models\PickupModel;
+use \App\Models\SectorModel;
+use \App\Models\SubsectorModel;
+use \App\Models\SansthaBranchesModel;
+
+?>
 <?= view('home/dash_header'); ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -27,10 +42,22 @@
 					<!-- general form elements disabled -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Update Sanstha</h3>
+							<div class="row">
+								<div class="col-sm-8">
+									<?php
+										$prefix = (new PickupModel())->where(array('master_isDelete'=>0,'master_id'=>$sanstha_data[0]['cs_prefix']))->findAll();
+										$state = (new statesModel())->where(array('st_id'=>$sanstha_data[0]['cs_state']))->findAll();
+										$user = (new UserModel())->where(array('user_id'=>$sanstha_data[0]['cs_modifiedBy']))->findAll();
+									?>
+									<h3 class="card-title"><?php echo $prefix[0]['master_name'].' '.$sanstha_data[0]['cs_name'].' - '.$state[0]['st_name']; ?></h3>
+								</div>
+								<div class="col-sm-4 text-right" >
+								<label style="font-weight: 400!important;font-size: small;">Last Updated By-<?= $user[0]['user_firstName'].' '.$user[0]['user_lastName'];?> On- <?= date('d M Y, h:i A', strtotime($sanstha_data[0]['cs_modifiedOn'])); ?></label>
+								</div>
+							</div>
 						</div>
 					</div>
-					<form role="form" id="createSanstha" method="post" action="<?= site_url('sanstha/sansthaUpdateSave'); ?>">
+					<form role="form" id="createSanstha" method="post" action="<?= site_url('cosanstha/sansthaUpdateSave'); ?>">
 						<div class="card-body" style="padding: 0.25rem;">
 							<fieldset style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>1. State Details</h4><hr>
 								<div class="row">
@@ -184,7 +211,7 @@
 									</div>
 								</div>
 							</fieldset>
-							<fieldset class="hidden" id="sansthaInfo" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>3. Sanstha Information<span style="color:red;font-size: 14px">  **Either fill complete information else keep empty..</span></h4>
+							<fieldset class="hidden" id="sansthaInfo" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>3. Sanstha Information<span style="color:red;font-size: 14px">  **All fields in this section are mandetory start entering only if data available..</span></h4>
 
 								<hr>
 								<div class="row">
@@ -303,7 +330,7 @@
 									</div>
 								</div>
 							</fieldset>
-							<fieldset class="hidden" id="otherDetails" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>4. Other Details<span style="color:red;font-size: 14px">  **Either fill complete information else keep empty..</span></h4>
+							<fieldset class="hidden" id="otherDetails" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>4. Other Details<span style="color:red;font-size: 14px">   **All fields in this section are mandetory start entering only if data available..</span></h4>
 								<div class="row <?php if(empty($sanstha_branches)){echo 'hidden';} ?>">
 									<div class="col-md-12">
 									<table class="table table-bordered">
@@ -361,7 +388,7 @@
 									<div class="col-sm-3">
 										<!-- text input -->
 										<div class="form-group">
-											<label>Annual Turnover<span class="mandatory"> * </span></label>
+											<label>Annual Turnover[lacks]<span class="mandatory"> * </span></label>
 											<input type="number"  name="csd_annual_turnover" class="form-control" placeholder="Annual Turnover">		
 										</div>
 									</div>
@@ -379,7 +406,7 @@
 									</div>
 								</div>
 							</fieldset>
-							<fieldset class="hidden" id="managementInfo" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>5. Management Info<span style="color:red;font-size: 14px">  **Either fill complete information else keep empty..</span></h4>								
+							<fieldset class="hidden" id="managementInfo" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>5. Management Info<span style="color:red;font-size: 14px">   **All fields in this section are mandetory start entering only if data available..</span></h4>								
 								<div class="row <?php if(empty($sanstha_details)){echo 'hidden';} ?>">
 								<div class="col-md-12">
 								<table class="table table-bordered">
@@ -444,7 +471,7 @@
 								</div>
 							</div>
 						</fieldset>
-						<fieldset class="hidden" id="membershipDetails" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>6. Sahakar Bharati Membership Details<span style="color:red;font-size: 14px">  **Either fill complete information else keep empty..</span></h4><hr>
+						<fieldset class="hidden" id="membershipDetails" style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>6. Sahakar Bharati Membership Details<span style="color:red;font-size: 14px">   **All fields in this section are mandetory start entering only if data available..</span></h4><hr>
 								
 							<div class="row <?php if(empty($sanstha_mem)){echo 'hidden';} ?>">
 								<div class="col-md-12">
@@ -452,7 +479,7 @@
 									<thead>
 					                  <tr>
 					                    <th style="width: 1%;text-align: center; color:black;">No.</th>
-					                    <th style="text-align:center;color:black;">Membershio</th>
+					                    <th style="text-align:center;color:black;">Membership</th>
 					                    <th style="text-align: center;color:black;">From date </th>
 					                    <th style="text-align: center;color:black;">To date </th>
 					                  </tr>					
@@ -497,6 +524,14 @@
 									<div class="form-group">
 										<label>Membership End Date<span class="mandatory"> * </span></label>
 										<input type="date" name="cs_membership_end_date" class="form-control" value="">						
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+										<label class="custom-control-label" for="defaultUnchecked">Parivar Members?</label>
 									</div>
 								</div>
 							</div>

@@ -41,17 +41,17 @@ $routes->match(['get','post'], 'user/import_users', 'User::import_users_details'
 $routes->get('logout', 'Home::logout');
 
 // Register Sanstha
-$routes->match(['get','post'],'sanstha/sanstha_details/(:any)','Sanstha::sanstha_details/$1', ['filter'=>'auth']);
-$routes->match(['get','post'], 'sanstha/create_sanstha/(:any)', 'Sanstha::create_sanstha/$1', ['filter'=>'auth']);
-$routes->match(['get','post'], 'sanstha/(:any)/update_details', 'Sanstha::update_sanstha_details', ['filter'=>'auth']);
+$routes->match(['get','post'],'cosanstha/sanstha_details/(:any)','Sanstha::sanstha_details/$1', ['filter'=>'auth']);
+$routes->match(['get','post'], 'cosanstha/create_sanstha/(:any)', 'Sanstha::create_sanstha/$1', ['filter'=>'auth']);
+$routes->match(['get','post'], 'cosanstha/(:any)/update_details', 'Sanstha::update_sanstha_details', ['filter'=>'auth']);
 
-$routes->get('sanstha/update_sanstha/(:any)', 'Sanstha::updateSanstha/$1', ['filter'=>'auth']);
-$routes->get('sanstha/view_sanstha/(:any)', 'Sanstha::sansthaData/$1', ['filter'=>'auth']);
-$routes->match(['get','post'],'sanstha/sansthaUpdateRe', 'Sanstha::update_sanstha_record', ['filter'=>'auth']);
-$routes->match(['get','post'],'sanstha/sansthaUpdateSave', 'Sanstha::update_sanstha_save_record',['filter'=>'auth']);
+$routes->get('cosanstha/update_sanstha/(:any)', 'Sanstha::updateSanstha/$1', ['filter'=>'auth']);
+$routes->get('cosanstha/view_sanstha/(:any)', 'Sanstha::sansthaData/$1', ['filter'=>'auth']);
+$routes->match(['get','post'],'cosanstha/sansthaUpdateRe', 'Sanstha::update_sanstha_record', ['filter'=>'auth']);
+$routes->match(['get','post'],'cosanstha/sansthaUpdateSave', 'Sanstha::update_sanstha_save_record',['filter'=>'auth']);
 
 // Delete Sanstha
-$routes->match(['get','post'], 'sanstha/sanstha_details', 'Sanstha::sansthaDelete', ['filter'=>'auth']);
+$routes->match(['get','post'], 'cosanstha/sanstha_details', 'Sanstha::sansthaDelete', ['filter'=>'auth']);
 
 // Report
 $routes->match(['get','post'], 'report/rpt_sanstha', 'Report::rpt_sanstha', ['filter'=>'auth']);

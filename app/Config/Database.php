@@ -32,10 +32,14 @@ class Database extends Config
 	 */
 	public $default = [
 		'DSN'      => '',
-		'hostname' => 'sdb-p.hosting.stackcp.net',
-		'username' => 'wspbs21-31393844ac',
-		'password' => '0y6u9n9zcn',
-		'database' => 'wspbs21-31393844ac',
+		'hostname' => 'localhost',
+		'username' => 'root',
+		'password' => '',
+		'database' => 'cosdm',
+		// 'hostname' => 'sdb-p.hosting.stackcp.net',
+		// 'username' => 'wspbs21-31393844ac',
+		// 'password' => '0y6u9n9zcn',
+		// 'database' => 'wspbs21-31393844ac',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
 		'pConnect' => false,

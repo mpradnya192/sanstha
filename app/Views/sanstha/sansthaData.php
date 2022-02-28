@@ -1,3 +1,18 @@
+<?php 
+namespace App\Controllers;
+use CodeIgniter\Controller;
+use \App\Models\HomeModel;
+use \App\Models\UserModel;
+use \App\Models\RegionModel;
+use \App\Models\statesModel;
+use \App\Models\CitiesModel;
+use \App\Models\SansthaModel;
+use \App\Models\PickupModel;
+use \App\Models\SectorModel;
+use \App\Models\SubsectorModel;
+use \App\Models\SansthaBranchesModel;
+
+?>
 <?= view('home/dash_header'); ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -27,10 +42,22 @@
 					<!-- general form elements disabled -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Sanstha Details</h3>
+						<div class="row">
+								<div class="col-sm-8">
+									<?php
+										$prefix = (new PickupModel())->where(array('master_isDelete'=>0,'master_id'=>$sanstha_data[0]['cs_prefix']))->findAll();
+										$state = (new statesModel())->where(array('st_id'=>$sanstha_data[0]['cs_state']))->findAll();
+										$user = (new UserModel())->where(array('user_id'=>$sanstha_data[0]['cs_modifiedBy']))->findAll();
+									?>
+									<h3 class="card-title"><?php echo $prefix[0]['master_name'].' '.$sanstha_data[0]['cs_name'].' - '.$state[0]['st_name']; ?></h3>
+								</div>
+								<div class="col-sm-4 text-right" >
+								<label style="font-weight: 400!important;font-size: small;">Last Updated By-<?= $user[0]['user_firstName'].' '.$user[0]['user_lastName'];?> On- <?= date('d M Y, h:i A', strtotime($sanstha_data[0]['cs_modifiedOn'])); ?></label>
+								</div>
+							</div>
 						</div>
 					</div>
-					<form role="form" id="createSanstha" method="post" action="<?= site_url('sanstha/sansthaUpdateSave'); ?>">
+					<form role="form" id="createSanstha" method="post" action="<?= site_url('cosanstha/sansthaUpdateSave'); ?>">
 						<div class="card-body" style="padding: 0.25rem;">
 							<fieldset style="border: 1px solid #d3d3d3;padding: 1.25rem;background-color: #FFF"><h4>1. State Details</h4><hr>
 								<div class="row">
@@ -79,9 +106,26 @@
 									<div class="col-sm-3">
 										<!-- text input -->
 										<div class="form-group">
-											<label>Type<span class="mandatory"> * </span></label>
-											<select class="form-control" name="cs_type" disabled>
-											<option>Please select</option>
+											<label>Sector<span class="mandatory"> * </span></label>
+											<select class="form-control" name="cs_sector" disabled>
+												<option value="">Please select</option>
+												<?php foreach($sector as $sec){ ?>
+													<option value="<?= $sec['sector_id']; ?>" <?php if ($sec['sector_id'] == $sanstha_data[0]['cs_sector']) { echo "Selected";
+													} ?>><?= $sec['sector_name']; ?></option>
+												<?php } ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<!-- text input -->
+										<div class="form-group">
+											<label>Sub Sector</label>
+											<select class="form-control" name="cs_subsector" disabled>
+												<option value="">Please select</option>
+												<?php foreach($subsector as $sbs){ ?>
+													<option value="<?= $sbs['ss_id']; ?>" <?php if ($sbs['ss_id'] == $sanstha_data[0]['cs_subsector']) { echo "Selected";
+													} ?>><?= $sbs['ss_name']; ?></option>
+												<?php } ?>
 											</select>
 										</div>
 									</div>
@@ -418,7 +462,7 @@
 									<thead>
 					                  <tr>
 					                    <th style="width: 1%;text-align: center; color:black;">No.</th>
-					                    <th style="text-align:center;color:black;">Membershio</th>
+					                    <th style="text-align:center;color:black;">Membership</th>
 					                    <th style="text-align: center;color:black;">From date </th>
 					                    <th style="text-align: center;color:black;">To date </th>
 					                  </tr>					
@@ -470,7 +514,7 @@
 						</div>
 						<!-- /.card-body -->
 						<div class="card-footer text-right">
-							<a href="<?= site_url('sanstha//sanstha_details/'.$sanstha_data[0]['cs_state'].'') ?>"><span class="btn btn-primary">Back</span></a>
+							<a href="<?= site_url('cosanstha/sanstha_details/'.$sanstha_data[0]['cs_state'].'') ?>"><span class="btn btn-primary">Back</span></a>
 						</div>
 					</form>
 

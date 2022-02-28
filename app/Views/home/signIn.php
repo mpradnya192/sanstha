@@ -7,7 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Favicons -->
-  <link rel="shortcut icon" href="<?= base_url(); ?>/public/dist/img/WA-logo.jpg" type="image/x-icon">
+  <link rel="shortcut icon" href="<?= base_url(); ?>/public/dist/img/sanstha-logo.jpg" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url(); ?>/public/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -104,7 +104,7 @@
 <body class="hold-transition" style="overflow: hidden;">
   <div class="row" style="border-bottom: 1px solid #cccccc;vertical-align: middle;margin: 0px;">
     <div class="col-sm-12 col-lg-12 col-md-12 col-xs-12">
-      <img class="title-icon" src="<?= base_url(); ?>/public/dist/img/WA-logo.png" style="width: 5%;padding: .4%;">
+      <img class="title-icon" src="<?= base_url(); ?>/public/dist/img/sanstha-logo.jpg" style="width: 6%;padding: .4%;">
       <i class="fa fa-angle-right fa-lg"></i>
       <span style="font-size: large;font-weight: 600;padding-left: 1%;">Login</span>
     </div>

@@ -135,9 +135,10 @@
 								<tr>
 									<th>#</th>
 									<th>Role</th>
+									<th>State</th>
 									<th>Name</th>
-									<th>Mobile</th>
 									<th>Email</th>
+									<th>Mobile</th>
 									<th></th>
 									<th style="text-align: center;">Action</th>
 								</tr>

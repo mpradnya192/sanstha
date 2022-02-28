@@ -71,6 +71,18 @@
         });       
       },'JSON');     
     });
+    $(document).on('change',"select[name='cs_filter_district']",function(){
+      var chkVal=$(this).val(); 
+      var state=$("select[name='cs_filter_state']").val(); //alert(state);
+      $.post('<?= site_url('Sanstha/getTaluka') ?>',{chkVal,state}, function(talInfo){
+        console.log(talInfo);
+        $('select[name="cs_filter_taluka"]').empty();
+        $("select[name='cs_filter_taluka']").append('<option value="">Please select</option>');
+        $.each(talInfo,function(p,q){           
+            $("select[name='cs_filter_taluka']").append('<option value="'+q.tal_id+'">'+q.tal_name+'</option>');            
+        });       
+      },'JSON');     
+    });
     
     $(document).on('change',"select[name='cs_sector']",function(){
       var sector=$(this).val(); 
@@ -161,11 +173,9 @@
         $('#sansthaInfomation').addClass('hidden');       
       }
       else{
-        alert('Either fill complete information else keep empty');         
+        alert('All fields in this section are mandetory start entering only if data available..');         
       }
-    });
-
-    
+    });    
 
     $(document).on('click','#sansthaDetails',function(){
       $('#sansthaInfo').removeClass('hidden');
@@ -232,7 +242,7 @@
         $('#managementInfo').removeClass('hidden');
         $('#sansthaOther').addClass('hidden');
       }else{
-        alert('Either fill complete information else keep empty');
+        alert('All fields in this section are mandetory start entering only if data available..');
       }      
     });
 
@@ -290,7 +300,7 @@
         $('#membershipDetails').removeClass('hidden');
         $('#sansthaManagement').addClass('hidden');
       }else{
-        alert('Either fill complete information else keep empty');
+        alert('All fields in this section are mandetory start entering only if data available..');
       }      
     });
 
